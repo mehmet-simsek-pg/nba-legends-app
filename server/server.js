@@ -1,19 +1,31 @@
 const express = require("express");
 const app = express();
+const players= require("./routes/PlayerRoutes");
+const connectDB = require("./db/connect");
+require("dotenv").config();
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
+const mongoose = require("mongoose");
+// middleware
+app.use(express.json());
 
-app.get("/players", (req, res) => {
-  res.json({
-    player: {
-      name: "Kareem Abdul-Jabbar",
-      img: "https://efemeridesdoefemello.files.wordpress.com/2014/05/13jun14.jpeg?w=640",
-      statistics: [
-        "38,387 points",
-        "17,440 rebaunds",
-        "5,660 assist",
-        "19 All Star",
-      ],
-    },
-  });
-});
+// routes
+app.use("/api/v1", players);
 
-app.listen(5000, () => console.log("server is running on port 5000"));
+app.use(notFound);
+app.use(errorHandlerMiddleware);
+const port = process.env.PORT || 5000;
+
+const start = async () => {
+  try {
+    mongoose.set("strictQuery", false);
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, () =>
+      console.log(`Server is listening on port ${port}...`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();

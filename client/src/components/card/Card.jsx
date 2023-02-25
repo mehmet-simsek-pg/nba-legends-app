@@ -22,7 +22,7 @@ const Card = () => {
             )
             .map((player, index) => {
               return (
-                <Col kex={index} xl={3} lg={4} md={6}>
+                <Col key={index} xl={3} lg={4} md={6}>
                   <PlayerCard {...player} />;
                 </Col>
               );
