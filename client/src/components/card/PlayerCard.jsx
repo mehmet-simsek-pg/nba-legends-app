@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
-import nbaLogo from "../../assets/nba-logo.png";
+import avatar from "../../assets/avatar.jpg";
 
 const PlayerCard = ({ name, img, statistics }) => {
   const [showImage, setShowImage] = useState(true);
@@ -15,7 +15,7 @@ const PlayerCard = ({ name, img, statistics }) => {
       {showImage ? (
         <Card.Img
           variant="top"
-          src={img ? img : nbaLogo}
+          src={img ? img : avatar}
           className="player-logo"
         />
       ) : (
