@@ -10,7 +10,7 @@ const Card = () => {
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setPlayers(data));
+      .then((data) => setPlayers(data.Players));
   }, []);
 
   console.log(players);
