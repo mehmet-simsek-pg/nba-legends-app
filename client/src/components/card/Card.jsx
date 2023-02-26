@@ -1,5 +1,4 @@
 import { Col, Container, Row, Form } from "react-bootstrap";
-//import { data } from "../../helpers/data";
 import PlayerCard from "./PlayerCard";
 import { useState, useEffect } from "react";
 
@@ -7,17 +6,9 @@ const Card = () => {
   const [search, setSearch] = useState("");
   const [players, setPlayers] = useState([]);
   const url = "https://nbaplayers.onrender.com/api/v1/players";
-  const getPlayers = async () => {
-    try {
-      const { Players } = fetch(url);
-      setPlayers(Players);
-    } catch (error) {
-      console.log(new Date(), error);
-    }
-  };
 
   useEffect(() => {
-    fetch("https://nbaplayers.onrender.com/api/v1/players")
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setPlayers(data));
   }, []);
