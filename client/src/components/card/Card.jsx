@@ -1,11 +1,28 @@
 import { Col, Container, Row, Form } from "react-bootstrap";
-import { data } from "../../helpers/data";
+//import { data } from "../../helpers/data";
 import PlayerCard from "./PlayerCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Card = () => {
   const [search, setSearch] = useState("");
+  const [players, setPlayers] = useState([]);
+  const url = "https://nbaplayers.onrender.com/api/v1/players";
+  const getPlayers = async () => {
+    try {
+      const { Players } = fetch(url);
+      setPlayers(Players);
+    } catch (error) {
+      console.log(new Date(), error);
+    }
+  };
 
+  useEffect(() => {
+    fetch("https://nbaplayers.onrender.com/api/v1/players")
+      .then((res) => res.json())
+      .then((data) => setPlayers(data));
+  }, []);
+
+  console.log(players);
   return (
     <>
       <Form.Control
@@ -16,7 +33,7 @@ const Card = () => {
       />
       <Container className="rounded-4 my-4 p-3 card-container">
         <Row className="g-3 justify-content-center">
-          {data
+          {players
             .filter((player) =>
               player.name.toLowerCase().includes(search.trim().toLowerCase())
             )
