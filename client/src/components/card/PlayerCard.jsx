@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
+import nbaLogo from "../../assets/nba-logo.png";
 
 const PlayerCard = ({ name, img, statistics }) => {
   const [showImage, setShowImage] = useState(true);
@@ -12,7 +13,11 @@ const PlayerCard = ({ name, img, statistics }) => {
       onClick={handleClick}
     >
       {showImage ? (
-        <Card.Img variant="top" src={img} className="player-logo" />
+        <Card.Img
+          variant="top"
+          src={img ? img : nbaLogo}
+          className="player-logo"
+        />
       ) : (
         <ul className="m-auto">
           {statistics.map((stat, index) => {
